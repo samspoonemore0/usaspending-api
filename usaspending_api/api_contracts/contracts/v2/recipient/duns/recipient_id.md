@@ -76,9 +76,9 @@ This endpoint returns a high-level overview of a specific recipient, given its i
                     "congressional_code": "03"
                 },
                 "total_transaction_amount": 0,
-                "total_transactions": 0,
-                "total_face_value_loan_amount": 0,
-                "total_face_value_loan_transactions": 0
+                "total_transactions": 300,000.00,
+                "total_face_value_loan_amount": 300,000.00,
+                "total_face_value_loan_transactions": 300,000.00
             }
 
 # Data Structures
