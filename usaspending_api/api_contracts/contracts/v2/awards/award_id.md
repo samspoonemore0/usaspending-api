@@ -38,6 +38,7 @@ This endpoint returns a list of data that is associated with the award profile p
                 "parent_award": {
                     "agency_id": 1173,
                     "agency_name": "Department of Defense",
+                    "agency_slug": "department-of-defense",
                     "sub_agency_id": "9700",
                     "sub_agency_name": "Department of Defense",
                     "award_id": 69513842,
@@ -124,7 +125,8 @@ This endpoint returns a list of data that is associated with the award profile p
                     "toptier_agency": {
                         "name": "Department of Defense",
                         "code": "097",
-                        "abbreviation": "DOD"
+                        "abbreviation": "DOD",
+                        "slug": "department-of-defense"
                     },
                     "subtier_agency": {
                         "name": "Defense Logistics Agency",
@@ -139,7 +141,8 @@ This endpoint returns a list of data that is associated with the award profile p
                     "toptier_agency": {
                         "name": "Department of Defense",
                         "code": "097",
-                        "abbreviation": "DOD"
+                        "abbreviation": "DOD",
+                        "slug": "department-of-defense"
                     },
                     "subtier_agency": {
                         "name": "Defense Logistics Agency",
@@ -157,9 +160,11 @@ This endpoint returns a list of data that is associated with the award profile p
                 "recipient": {
                     "recipient_hash": "a704b6c0-d296-fc75-79e9-7a9546b3b634-C",
                     "recipient_name": "MCKESSON CORPORATION",
+                    "recipient_uei": "JTAPCFM4NSL4",
                     "recipient_unique_id": "105919864",
                     "parent_recipient_hash": "8b51f520-c590-0517-1e0d-45336a1b9332-P",
                     "parent_recipient_name": "MCKESSON CORPORATION",
+                    "parent_recipient_uei": "S1RUKWWRYFL6",
                     "parent_recipient_unique_id": "177667227",
                     "business_categories": [
                         "Category Business",
@@ -302,7 +307,8 @@ This endpoint returns a list of data that is associated with the award profile p
                     "toptier_agency": {
                         "name": "Department of Agriculture",
                         "code": "012",
-                        "abbreviation": "USDA"
+                        "abbreviation": "USDA",
+                        "slug": "department-of-agriculture"
                     },
                     "subtier_agency": {
                         "name": "Farm Service Agency",
@@ -317,7 +323,8 @@ This endpoint returns a list of data that is associated with the award profile p
                     "toptier_agency": {
                         "name": "Department of Agriculture",
                         "code": "012",
-                        "abbreviation": "USDA"
+                        "abbreviation": "USDA",
+                        "slug": "department-of-agriculture"
                     },
                     "subtier_agency": {
                         "name": "Farm Service Agency",
@@ -329,9 +336,11 @@ This endpoint returns a list of data that is associated with the award profile p
                 "recipient": {
                     "recipient_hash": "6e4362a8-7dd7-8d86-d2ff-8faa5eefe0aa-R",
                     "recipient_name": "REDACTED DUE TO PII",
+                    "recipient_uei": null,
                     "recipient_unique_id": null,
                     "parent_recipient_hash": null,
                     "parent_recipient_name": null,
+                    "parent_recipient_uei": null,
                     "parent_recipient_unique_id": null,
                     "business_categories": [
                         "Individuals"
@@ -551,7 +560,8 @@ This endpoint returns a list of data that is associated with the award profile p
                     "toptier_agency": {
                         "name": "Department of Defense",
                         "code": "097",
-                        "abbreviation": "DOD"
+                        "abbreviation": "DOD",
+                        "slug": "department-of-defense"
                     },
                     "subtier_agency": {
                         "name": "Department of the Air Force",
@@ -566,7 +576,8 @@ This endpoint returns a list of data that is associated with the award profile p
                     "toptier_agency": {
                         "name": "Department of Defense",
                         "code": "097",
-                        "abbreviation": "DOD"
+                        "abbreviation": "DOD",
+                        "slug": "department-of-defense"
                     },
                     "subtier_agency": {
                         "name": "Department of the Air Force",
@@ -584,9 +595,11 @@ This endpoint returns a list of data that is associated with the award profile p
                 "recipient": {
                     "recipient_hash": "fcc89367-99ce-1509-091c-ce26fb52556b-C",
                     "recipient_name": "GRADLYN - G.K. AIRFREIGHT SERVICE GMBH",
+                    "recipient_uei": "EBUHL3LJ3JE9",
                     "recipient_unique_id": "317771921",
                     "parent_recipient_hash": "fcc89367-99ce-1509-091c-ce26fb52556b-P",
                     "parent_recipient_name": "GK AIRFREIGHT-SERVICE GRADLYN KENNELS GMBH",
+                    "parent_recipient_uei": "EBUHL3LJ3JE9",
                     "parent_recipient_unique_id": "317771921",
                     "business_categories": [
                         "Category Business",
@@ -874,6 +887,8 @@ This endpoint returns a list of data that is associated with the award profile p
 ## ParentDetails (object)
 + `agency_id` (required, number)
 + `agency_name` (required, string)
++ `agency_slug` (required, string, nullable)
+    `agency_slug` is a string used to generate a link to the agency profile page. Will be `NULL` if the agency does not have a profile page.
 + `sub_agency_id` (required, string)
 + `sub_agency_name` (required, string)
 + `award_id` (required, number, nullable)
@@ -887,6 +902,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + `name` (required, string, nullable)
 + `code` (required, string)
 + `abbreviation` (required, string, nullable)
++ `slug` (required, string, nullable)
 
 ## SubTierAgency (object)
 + `name` (required, string, nullable)
@@ -896,10 +912,12 @@ This endpoint returns a list of data that is associated with the award profile p
 ## Recipient (object)
 + `recipient_name` (required, string, nullable)
 + `recipient_hash` (required, string, nullable)
++ `recipient_uei` (required, string, nullable)
 + `recipient_unique_id` (required, string, nullable)
     The recipient's DUNS
 + `parent_recipient_name` (string, nullable)
 + `parent_recipient_hash` (string, nullable)
++ `parent_recipient_uei` (required, string, nullable)
 + `parent_recipient_unique_id` (required, string, nullable)
     The recipient's parent's DUNS
 + `location` (required, Location, nullable)

@@ -6,7 +6,7 @@ from rest_framework import status
 from model_mommy import mommy
 
 from usaspending_api.awards.models import TransactionNormalized
-from usaspending_api.references.models import Agency, ToptierAgency, SubtierAgency
+from usaspending_api.references.models import Agency
 
 
 @pytest.fixture
@@ -78,27 +78,27 @@ def awards_and_transactions(db):
     toptier_agency_1 = {"pk": 1, "abbreviation": "TA1", "name": "TOPTIER AGENCY 1", "toptier_code": "ABC"}
     toptier_agency_2 = {"pk": 2, "abbreviation": "TA2", "name": "TOPTIER AGENCY 2", "toptier_code": "002"}
 
-    mommy.make("references.ToptierAgency", **toptier_agency_1)
-    mommy.make("references.ToptierAgency", **toptier_agency_2)
+    ta1 = mommy.make("references.ToptierAgency", **toptier_agency_1)
+    ta2 = mommy.make("references.ToptierAgency", **toptier_agency_2)
 
     # Subtier Agency
     subtier_agency_1 = {"pk": 1, "abbreviation": "SA1", "name": "SUBTIER AGENCY 1", "subtier_code": "DEF"}
     subtier_agency_2 = {"pk": 2, "abbreviation": "SA2", "name": "SUBTIER AGENCY 2", "subtier_code": "1000"}
 
-    mommy.make("references.SubtierAgency", **subtier_agency_1)
-    mommy.make("references.SubtierAgency", **subtier_agency_2)
+    sa1 = mommy.make("references.SubtierAgency", **subtier_agency_1)
+    sa2 = mommy.make("references.SubtierAgency", **subtier_agency_2)
 
     # Agency
     agency = {
         "pk": 1,
-        "subtier_agency": SubtierAgency.objects.get(pk=1),
-        "toptier_agency": ToptierAgency.objects.get(pk=1),
+        "subtier_agency": sa1,
+        "toptier_agency": ta1,
         "toptier_flag": True,
     }
     agency_2 = {
         "pk": 2,
-        "subtier_agency": SubtierAgency.objects.get(pk=2),
-        "toptier_agency": ToptierAgency.objects.get(pk=2),
+        "subtier_agency": sa2,
+        "toptier_agency": ta2,
         "toptier_flag": True,
     }
 
@@ -175,7 +175,9 @@ def awards_and_transactions(db):
         "place_of_performance_congr": "-0-",
         "place_of_performance_forei": None,
         "place_of_performance_zip5": "40221",
+        "uei": "DEF",
         "ultimate_parent_legal_enti": "PARENT LEGAL ENTITY",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
     }
     asst_trans_2 = {
@@ -219,7 +221,9 @@ def awards_and_transactions(db):
         "place_of_performance_forei": None,
         "place_of_performance_zip5": "40221",
         "total_funding_amount": 100,
+        "uei": "DEF",
         "ultimate_parent_legal_enti": "Dave's Pizza LLC",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
     }
     asst_trans_3 = {
@@ -263,7 +267,9 @@ def awards_and_transactions(db):
         "place_of_performance_forei": None,
         "place_of_performance_zip5": "40221",
         "total_funding_amount": 400,
+        "uei": "DEF",
         "ultimate_parent_legal_enti": "PARENT LEGAL ENTITY",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
     }
     asst_trans_4 = {
@@ -307,7 +313,9 @@ def awards_and_transactions(db):
         "place_of_performance_forei": None,
         "place_of_performance_zip5": "40221",
         "total_funding_amount": 100,
+        "uei": "DEF",
         "ultimate_parent_legal_enti": "PARENT LEGAL ENTITY",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
     }
 
@@ -353,7 +361,9 @@ def awards_and_transactions(db):
         "place_of_performance_forei": None,
         "place_of_performance_zip5": "40221",
         "total_funding_amount": 100,
+        "uei": "DEF",
         "ultimate_parent_legal_enti": "PARENT LEGAL ENTITY",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
     }
 
@@ -368,6 +378,7 @@ def awards_and_transactions(db):
         "pk": 2,
         "transaction": TransactionNormalized.objects.get(pk=2),
         "awardee_or_recipient_legal": "LEGAL ENTITY",
+        "awardee_or_recipient_uei": "DEF",
         "awardee_or_recipient_uniqu": "456",
         "awarding_office_name": "awarding_office",
         "clinger_cohen_act_pla_desc": "NO",
@@ -441,6 +452,7 @@ def awards_and_transactions(db):
         "type_of_idc_description": None,
         "type_set_aside_description": None,
         "ultimate_parent_legal_enti": "PARENT LEGAL ENTITY",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
         "national_interest_action": "NONE",
         "national_interest_desc": "NONE",
@@ -449,6 +461,7 @@ def awards_and_transactions(db):
         "pk": 6,
         "transaction": TransactionNormalized.objects.get(pk=6),
         "awardee_or_recipient_legal": "LEGAL ENTITY",
+        "awardee_or_recipient_uei": "DEF",
         "awardee_or_recipient_uniqu": "456",
         "awarding_office_name": "awarding_office",
         "clinger_cohen_act_pla_desc": "NO",
@@ -522,6 +535,7 @@ def awards_and_transactions(db):
         "type_of_idc_description": None,
         "type_set_aside_description": None,
         "ultimate_parent_legal_enti": "PARENT LEGAL ENTITY",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
         "national_interest_action": "NONE",
         "national_interest_desc": "NONE",
@@ -530,6 +544,7 @@ def awards_and_transactions(db):
         "pk": 7,
         "transaction": TransactionNormalized.objects.get(pk=7),
         "awardee_or_recipient_legal": "LEGAL ENTITY",
+        "awardee_or_recipient_uei": "DEF",
         "awardee_or_recipient_uniqu": "456",
         "awarding_office_name": "awarding_office",
         "clinger_cohen_act_pla_desc": "NO",
@@ -603,6 +618,7 @@ def awards_and_transactions(db):
         "type_of_idc_description": None,
         "type_set_aside_description": None,
         "ultimate_parent_legal_enti": "PARENT LEGAL ENTITY",
+        "ultimate_parent_uei": "ABC",
         "ultimate_parent_unique_ide": "123",
         "national_interest_action": "NONE",
         "national_interest_desc": "NONE",
@@ -913,6 +929,9 @@ def awards_and_transactions(db):
     mommy.make("awards.ParentAward", **parent_award_2)
     mommy.make("awards.ParentAward", **parent_award_3)
 
+    dsws1 = mommy.make("submissions.DABSSubmissionWindowSchedule", submission_reveal_date="2020-01-01")
+    mommy.make("submissions.SubmissionAttributes", toptier_code="ABC", submission_window=dsws1)
+
 
 @pytest.fixture
 def update_awards(db):
@@ -947,10 +966,15 @@ def test_award_endpoint_generated_id(client, awards_and_transactions):
 
 
 def test_award_endpoint_parent_award(client, awards_and_transactions):
+
+    dsws1 = mommy.make("submissions.DABSSubmissionWindowSchedule", submission_reveal_date="2020-01-01")
+    mommy.make("submissions.SubmissionAttributes", toptier_code="ABC", submission_window=dsws1)
+    mommy.make("submissions.SubmissionAttributes", toptier_code="002", submission_window=dsws1)
+
     # Test contract award with parent
     resp = client.get("/api/v2/awards/7/")
     assert resp.status_code == status.HTTP_200_OK
-    assert json.loads(resp.content.decode("utf-8"))["parent_award"] == expected_contract_award_parent
+    assert json.loads(resp.content.decode("utf-8"))["parent_award"] == expected_contract_award_parent()
 
     # Test contract award without parent
     resp = client.get("/api/v2/awards/10/")
@@ -960,7 +984,32 @@ def test_award_endpoint_parent_award(client, awards_and_transactions):
     # Test idv award with parent
     resp = client.get("/api/v2/awards/8/")
     assert resp.status_code == status.HTTP_200_OK
-    assert json.loads(resp.content.decode("utf-8"))["parent_award"] == expected_idv_award_parent
+    assert json.loads(resp.content.decode("utf-8"))["parent_award"] == expected_idv_award_parent()
+
+    # Test idv award without parent
+    resp = client.get("/api/v2/awards/9/")
+    assert resp.status_code == status.HTTP_200_OK
+    assert json.loads(resp.content.decode("utf-8"))["parent_award"] is None
+
+
+def test_award_endpoint_parent_award_no_submissions(client, awards_and_transactions):
+
+    # Test contract award with parent
+    resp = client.get("/api/v2/awards/7/")
+    assert resp.status_code == status.HTTP_200_OK
+    assert json.loads(resp.content.decode("utf-8"))["parent_award"] == expected_contract_award_parent(
+        include_slug=False
+    )
+
+    # Test contract award without parent
+    resp = client.get("/api/v2/awards/10/")
+    assert resp.status_code == status.HTTP_200_OK
+    assert json.loads(resp.content.decode("utf-8"))["parent_award"] is None
+
+    # Test idv award with parent
+    resp = client.get("/api/v2/awards/8/")
+    assert resp.status_code == status.HTTP_200_OK
+    assert json.loads(resp.content.decode("utf-8"))["parent_award"] == expected_idv_award_parent(include_slug=False)
 
     # Test idv award without parent
     resp = client.get("/api/v2/awards/9/")
@@ -1293,24 +1342,36 @@ expected_response_asst = {
     "transaction_obligated_amount": None,
     "awarding_agency": {
         "id": 1,
-        "has_agency_page": False,
-        "toptier_agency": {"name": "TOPTIER AGENCY 1", "abbreviation": "TA1", "code": "ABC"},
+        "has_agency_page": True,
+        "toptier_agency": {
+            "name": "TOPTIER AGENCY 1",
+            "abbreviation": "TA1",
+            "code": "ABC",
+            "slug": "toptier-agency-1",
+        },
         "subtier_agency": {"name": "SUBTIER AGENCY 1", "abbreviation": "SA1", "code": "DEF"},
         "office_agency_name": "awarding_office",
     },
     "funding_agency": {
         "id": 1,
-        "has_agency_page": False,
-        "toptier_agency": {"name": "TOPTIER AGENCY 1", "abbreviation": "TA1", "code": "ABC"},
+        "has_agency_page": True,
+        "toptier_agency": {
+            "name": "TOPTIER AGENCY 1",
+            "abbreviation": "TA1",
+            "code": "ABC",
+            "slug": "toptier-agency-1",
+        },
         "subtier_agency": {"name": "SUBTIER AGENCY 1", "abbreviation": "SA1", "code": "DEF"},
         "office_agency_name": "funding_office",
     },
     "recipient": {
         "recipient_hash": "f989e299-1f50-2600-f2f7-b6a45d11f367-C",
         "recipient_name": "LEGAL ENTITY",
+        "recipient_uei": "DEF",
         "recipient_unique_id": "456",
         "parent_recipient_hash": "8ec6b128-58cf-3ee5-80bb-e749381dfcdc-P",
         "parent_recipient_name": "PARENT LEGAL ENTITY",
+        "parent_recipient_uei": "ABC",
         "parent_recipient_unique_id": "123",
         "business_categories": ["Small Business"],
         "location": {
@@ -1379,24 +1440,36 @@ expected_response_cont = {
     "description": "lorem ipsum",
     "awarding_agency": {
         "id": 1,
-        "has_agency_page": False,
-        "toptier_agency": {"name": "TOPTIER AGENCY 1", "abbreviation": "TA1", "code": "ABC"},
+        "has_agency_page": True,
+        "toptier_agency": {
+            "name": "TOPTIER AGENCY 1",
+            "abbreviation": "TA1",
+            "code": "ABC",
+            "slug": "toptier-agency-1",
+        },
         "subtier_agency": {"name": "SUBTIER AGENCY 1", "abbreviation": "SA1", "code": "DEF"},
         "office_agency_name": "awarding_office",
     },
     "funding_agency": {
         "id": 1,
-        "has_agency_page": False,
-        "toptier_agency": {"name": "TOPTIER AGENCY 1", "abbreviation": "TA1", "code": "ABC"},
+        "has_agency_page": True,
+        "toptier_agency": {
+            "name": "TOPTIER AGENCY 1",
+            "abbreviation": "TA1",
+            "code": "ABC",
+            "slug": "toptier-agency-1",
+        },
         "subtier_agency": {"name": "SUBTIER AGENCY 1", "abbreviation": "SA1", "code": "DEF"},
         "office_agency_name": "funding_office",
     },
     "recipient": {
         "recipient_hash": "f989e299-1f50-2600-f2f7-b6a45d11f367-C",
         "recipient_name": "LEGAL ENTITY",
+        "recipient_uei": "DEF",
         "recipient_unique_id": "456",
         "parent_recipient_hash": "8ec6b128-58cf-3ee5-80bb-e749381dfcdc-P",
         "parent_recipient_name": "PARENT LEGAL ENTITY",
+        "parent_recipient_uei": "ABC",
         "parent_recipient_unique_id": "123",
         "business_categories": ["Small Business"],
         "location": {
@@ -1540,6 +1613,7 @@ expected_response_cont = {
     "parent_award": {
         "agency_id": None,
         "agency_name": None,
+        "agency_slug": None,
         "sub_agency_id": None,
         "sub_agency_name": None,
         "award_id": 4,
@@ -1556,28 +1630,34 @@ expected_response_cont = {
     "total_outlay": None,
 }
 
-expected_contract_award_parent = {
-    "agency_id": 2,
-    "agency_name": "TOPTIER AGENCY 2",
-    "sub_agency_id": "1000",
-    "sub_agency_name": "SUBTIER AGENCY 2",
-    "award_id": 8,
-    "generated_unique_award_id": "CONT_IDV_AWARD8_1000",
-    "idv_type_description": "TYPE DESCRIPTION TRANS 9",
-    "multiple_or_single_aw_desc": "AW DESCRIPTION TRANS 9",
-    "piid": "AWARD8",
-    "type_of_idc_description": "IDC DESCRIPTION TRANS 9",
-}
 
-expected_idv_award_parent = {
-    "agency_id": 2,
-    "agency_name": "TOPTIER AGENCY 2",
-    "sub_agency_id": "1000",
-    "sub_agency_name": "SUBTIER AGENCY 2",
-    "award_id": 9,
-    "generated_unique_award_id": "CONT_IDV_AWARD9_1000",
-    "idv_type_description": "TYPE DESCRIPTION TRANS 10",
-    "multiple_or_single_aw_desc": "AW DESCRIPTION TRANS 10",
-    "piid": "AWARD9",
-    "type_of_idc_description": "IDC DESCRIPTION TRANS 10",
-}
+def expected_contract_award_parent(include_slug=True):
+    return {
+        "agency_id": 2,
+        "agency_name": "TOPTIER AGENCY 2",
+        "agency_slug": "toptier-agency-2" if include_slug else None,
+        "sub_agency_id": "1000",
+        "sub_agency_name": "SUBTIER AGENCY 2",
+        "award_id": 8,
+        "generated_unique_award_id": "CONT_IDV_AWARD8_1000",
+        "idv_type_description": "TYPE DESCRIPTION TRANS 9",
+        "multiple_or_single_aw_desc": "AW DESCRIPTION TRANS 9",
+        "piid": "AWARD8",
+        "type_of_idc_description": "IDC DESCRIPTION TRANS 9",
+    }
+
+
+def expected_idv_award_parent(include_slug=True):
+    return {
+        "agency_id": 2,
+        "agency_name": "TOPTIER AGENCY 2",
+        "agency_slug": "toptier-agency-2" if include_slug else None,
+        "sub_agency_id": "1000",
+        "sub_agency_name": "SUBTIER AGENCY 2",
+        "award_id": 9,
+        "generated_unique_award_id": "CONT_IDV_AWARD9_1000",
+        "idv_type_description": "TYPE DESCRIPTION TRANS 10",
+        "multiple_or_single_aw_desc": "AW DESCRIPTION TRANS 10",
+        "piid": "AWARD9",
+        "type_of_idc_description": "IDC DESCRIPTION TRANS 10",
+    }
